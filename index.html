@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ブリーフアーカイブ</title>
+<style>
+:root{--bg:#f7f6f2;--card:#ffffff;--text:#20242b;--muted:#68707c;--border:#e4e2db;--chip:#efede7;--chip-on:#20242b;--chip-on-text:#ffffff;--accent:#2563eb;--danger:#c73e3e;--shadow:0 1px 3px rgba(20,23,28,.07)}
+html[data-theme="dark"]{--bg:#14161b;--card:#1d2026;--text:#e8eaee;--muted:#99a1ad;--border:#2c3038;--chip:#262a32;--chip-on:#e8eaee;--chip-on-text:#14161b;--accent:#8ab0ff;--danger:#ff8080;--shadow:0 1px 3px rgba(0,0,0,.35)}
+*{box-sizing:border-box}
+.hidden{display:none !important}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Noto Sans JP",system-ui,sans-serif;line-height:1.8;-webkit-font-smoothing:antialiased}
+button{font-family:inherit}
+.wrap{max-width:880px;margin:0 auto;padding:26px 16px 150px}
+header.site{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:20px}
+h1{font-size:1.5rem;margin:0 0 4px;letter-spacing:.02em}
+.site-meta{color:var(--muted);font-size:.85rem;margin:0}
+#themeBtn{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:6px 14px;cursor:pointer;font-size:.85rem;flex:none}
+.controls{margin-bottom:22px}
+#q{width:100%;padding:10px 14px;font-size:1rem;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text)}
+#q:focus{outline:2px solid var(--accent);outline-offset:1px}
+.grouplabel{font-size:.78rem;color:var(--muted);margin:14px 0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--border);background:var(--chip);color:var(--text);border-radius:999px;padding:4px 12px;font-size:.82rem;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip.on{background:var(--chip-on);color:var(--chip-on-text);border-color:var(--chip-on)}
+.chip .n{opacity:.6;font-size:.75rem}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+details.card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:14px;box-shadow:var(--shadow);overflow:hidden}
+summary{list-style:none;cursor:pointer;padding:16px 18px}
+summary::-webkit-details-marker{display:none}
+.headline{font-size:1.08rem;font-weight:700;line-height:1.6;margin:0 0 8px}
+.meta{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;color:var(--muted);font-size:.8rem}
+.badge{display:inline-flex;align-items:center;gap:6px;font-weight:600}
+.delbtn{margin-left:auto;border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:8px;padding:2px 9px;font-size:.75rem;cursor:pointer;flex:none}
+.delbtn:hover{color:var(--danger);border-color:var(--danger)}
+.preview{color:var(--muted);font-size:.86rem;margin:8px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.body{padding:2px 18px 18px;border-top:1px dashed var(--border)}
+.sec{margin-top:14px}
+.sec h4{margin:0 0 4px;font-size:.82rem;color:var(--muted);letter-spacing:.05em}
+.sec p{margin:0;white-space:pre-line}
+.src a{color:var(--accent);word-break:break-all}
+.tagline{display:flex;flex-wrap:wrap;gap:6px}
+.tagline span{background:var(--chip);border-radius:999px;padding:2px 10px;font-size:.78rem}
+.trash{margin-top:18px;border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:8px;padding:6px 12px;font-size:.8rem;cursor:pointer}
+.trash:hover{color:var(--danger);border-color:var(--danger)}
+#empty{color:var(--muted);text-align:center;padding:44px 0}
+footer.site{margin-top:38px;color:var(--muted);font-size:.8rem;border-top:1px solid var(--border);padding-top:16px;line-height:1.9}
+#tray{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:2px solid var(--border);box-shadow:0 -4px 16px rgba(0,0,0,.14);padding:12px 16px;z-index:10}
+#tray .inner{max-width:880px;margin:0 auto;font-size:.9rem}
+#tray .note{color:var(--muted);font-size:.78rem;margin:4px 0 8px}
+#sentence{display:inline-block;background:var(--chip);border-radius:8px;padding:6px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9rem;user-select:all}
+#tray button{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:8px;padding:6px 12px;font-size:.82rem;cursor:pointer;margin-left:8px}
+@media (max-width:600px){header.site{flex-direction:column}.delbtn{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <div>
+    <h1>ブリーフアーカイブ</h1>
+    <p class="site-meta">モーニングブリーフの保存記事 ・ 全5件 ・ 最終更新 2026-08-04</p>
+  </div>
+  <button id="themeBtn" type="button" aria-label="テーマ切替">🌙 ダーク</button>
+</header>
+<div class="controls">
+  <input id="q" type="search" placeholder="検索（見出し・発信者・本文・タグ・ID）" aria-label="記事を検索">
+  <p class="grouplabel">ブリーフ別</p>
+  <div class="chips" id="briefChips"><button class="chip" type="button" data-v="海外COO"><span class="dot" style="background:#3b82f6"></span>海外COO <span class="n">5</span></button><button class="chip" type="button" data-v="海外CHRO"><span class="dot" style="background:#f59e0b"></span>海外CHRO <span class="n">0</span></button><button class="chip" type="button" data-v="国内COO"><span class="dot" style="background:#06b6d4"></span>国内COO <span class="n">0</span></button><button class="chip" type="button" data-v="国内CHRO"><span class="dot" style="background:#d946ef"></span>国内CHRO <span class="n">0</span></button><button class="chip" type="button" data-v="国内ニュース"><span class="dot" style="background:#eab308"></span>国内ニュース <span class="n">0</span></button></div>
+  <p class="grouplabel">タグ</p>
+  <div class="chips" id="tagChips"><button class="chip" type="button" data-v="脱属人化">#脱属人化 <span class="n">1</span></button><button class="chip" type="button" data-v="組織設計">#組織設計 <span class="n">1</span></button><button class="chip" type="button" data-v="意思決定">#意思決定 <span class="n">1</span></button><button class="chip" type="button" data-v="社長の時間">#社長の時間 <span class="n">1</span></button><button class="chip" type="button" data-v="経営リズム">#経営リズム <span class="n">1</span></button><button class="chip" type="button" data-v="戦略実行">#戦略実行 <span class="n">1</span></button><button class="chip" type="button" data-v="価格戦略">#価格戦略 <span class="n">1</span></button><button class="chip" type="button" data-v="顧問メニュー">#顧問メニュー <span class="n">1</span></button><button class="chip" type="button" data-v="出口戦略">#出口戦略 <span class="n">1</span></button><button class="chip" type="button" data-v="個人ビジョン">#個人ビジョン <span class="n">1</span></button></div>
+</div>
+<main id="cards">
+<details class="card" data-id="A0001" data-brief="海外COO" data-tags="意思決定|社長の時間">
+  <summary>
+    <p class="headline">「戻れる決定」は24時間以内に決めろ。遅さのコストは、間違いのコストより高い</p>
+    <div class="meta">
+      <span class="badge"><span class="dot" style="background:#3b82f6"></span>海外COO</span>
+      <span>Team Contrarian（Contrarian Thinking 編集チーム。創業者は Codie Sanchez）</span>
+      <span>記事 2026-07-30</span>
+      <span>A0001</span>
+      <button class="delbtn" type="button" onclick="markDelete(event,'A0001')">✕ 削除</button>
+    </div>
+    <p class="preview">①自社経営: 週2休の設計は「社長の決定待ち」を潰さないと成立しない。社内チャットに「両開き案件」タグを作り、そこに入った案件は24時間で決めると宣言する。ツール導入・外注先の試験発注・記事の出し方は…</p>
+  </summary>
+  <div class="body">
+    <div class="sec"><h4>宮下さんへの示唆</h4><p>①自社経営: 週2休の設計は「社長の決定待ち」を潰さないと成立しない。社内チャットに「両開き案件」タグを作り、そこに入った案件は24時間で決めると宣言する。ツール導入・外注先の試験発注・記事の出し方は全部「両開き」。
+②顧問先支援: 商談スクリプト——「社長、直近1か月で決めずに持ち越している案件を3つ挙げてください。そのうち取り返しがつかないものは何個ありますか？」ほぼゼロと答える。そこで「では残りは今週中に決めましょう。決定の遅さは損益計算書に出ませんが、確実に粗利を削っています」。意思決定の棚卸しを顧問メニューの初回セッションに組み込める。
+③個人発信: X向け。「日本の社長が決められないのは慎重だからではなく、その決定が戻れるかどうかを分類していないから。戻れる決定は24時間で決めていい」——「24時間ルール」という運用の型に落とした発信は日本語圏で薄い領域。</p></div>
+    <div class="sec"><h4>注記</h4><p>記事は編集チーム名義で個人署名なし。本文に融資サービス（SoFi）の所要日数紹介が含まれ、スポンサード記事の可能性あり。数値引用時は要確認</p></div>
+    <div class="sec src"><h4>出典</h4><p><a href="https://www.contrarianthinking.co/newsletter-articles/the-24-hour-rule" target="_blank" rel="noopener noreferrer">https://www.contrarianthinking.co/newsletter-articles/the-24-hour-rule</a></p></div>
+    <div class="sec"><h4>タグ</h4><div class="tagline"><span>#意思決定</span><span>#社長の時間</span></div></div>
+    <div class="sec"><h4>記録情報</h4><p>2026-08-01 配信（海外COO）・保存日 2026-08-04</p></div>
+    <button class="trash" type="button" onclick="markDelete(event,'A0001')">🗑 この記事を削除リストに入れる</button>
+  </div>
+</details>
+<details class="card" data-id="A0004" data-brief="海外COO" data-tags="出口戦略|個人ビジョン">
+  <summary>
+    <p class="headline">会社を売った後に効いてくるのは金額ではない。「時間・自律・健康」を数えていない人が壊れる</p>
+    <div class="meta">
+      <span class="badge"><span class="dot" style="background:#3b82f6"></span>海外COO</span>
+      <span>Adam Katz（Corient パートナー／起業家・創業者部門統括）／Built to Sell Radio 第556回（ホスト John Warrillow）</span>
+      <span>記事 2026-07-24</span>
+      <span>A0004</span>
+      <button class="delbtn" type="button" onclick="markDelete(event,'A0004')">✕ 削除</button>
+    </div>
+    <p class="preview">①個人発信・個人目標（本丸）: 3年ビジョン「低稼働で役員報酬2000万／個人資産1億」は、①の real wealth 側を先に定義してある点で筋が良い。ただし⑤の「一速しかない自転車」は該当リスク…</p>
+  </summary>
+  <div class="body">
+    <div class="sec"><h4>宮下さんへの示唆</h4><p>①個人発信・個人目標（本丸）: 3年ビジョン「低稼働で役員報酬2000万／個人資産1億」は、①の real wealth 側を先に定義してある点で筋が良い。ただし⑤の「一速しかない自転車」は該当リスクあり。週2休の設計は社員のためだけでなく、宮下さん自身が二速目を持てるかどうかの訓練として位置づける。
+②顧問先支援: 成長期の社長は「いつか売る」を漠然と抱えている。「出口の前に決めておく3つの数字」（税引後に手元に残る額／売る理由／売った後の1週間の過ごし方）という30分の壁打ちメニューは、財務アドバイザーと差別化できる領域。税引後シミュレーションは税理士連携で単価が取れる。
+③自社経営: ④は自社にも刺さる。手元現金の厚さで会社の実力を測らない。粗利率と社長不在時の受注継続率で測る。</p></div>
+    <div class="sec"><h4>注記</h4><p>「three digit rule（3桁ルール）」の具体的な定義は取得記録に残っておらず要確認（7/31取得分の記録に基づき作成）</p></div>
+    <div class="sec src"><h4>出典</h4><p><a href="https://builttosell.com/radio/episode-556/" target="_blank" rel="noopener noreferrer">https://builttosell.com/radio/episode-556/</a></p></div>
+    <div class="sec"><h4>タグ</h4><div class="tagline"><span>#出口戦略</span><span>#個人ビジョン</span></div></div>
+    <div class="sec"><h4>記録情報</h4><p>2026-08-01 配信（海外COO）・保存日 2026-08-04</p></div>
+    <button class="trash" type="button" onclick="markDelete(event,'A0004')">🗑 この記事を削除リストに入れる</button>
+  </div>
+</details>
+<details class="card" data-id="A0002" data-brief="海外COO" data-tags="脱属人化|組織設計">
+  <summary>
+    <p class="headline">創業者依存は性格の問題ではなく「設計」の問題。直す順番は知識→決定権→顧客→調整</p>
+    <div class="meta">
+      <span class="badge"><span class="dot" style="background:#3b82f6"></span>海外COO</span>
+      <span>Ricardo Cruz（Ricardo Cruz Consulting 創業者・President &amp; CEO／フラクショナルCOO）</span>
+      <span>記事 2026-07-22</span>
+      <span>A0002</span>
+      <button class="delbtn" type="button" onclick="markDelete(event,'A0002')">✕ 削除</button>
+    </div>
+    <p class="preview">①自社経営: 「脱属人化」が漠然としているのは、依存を4種類に分けていないから。今期は②決定依存だけに絞るのが正解。「金額◯万円以下・既存顧客・前例あり」の3条件を満たす案件は宮下さんの承認不要、と決…</p>
+  </summary>
+  <div class="body">
+    <div class="sec"><h4>宮下さんへの示唆</h4><p>①自社経営: 「脱属人化」が漠然としているのは、依存を4種類に分けていないから。今期は②決定依存だけに絞るのが正解。「金額◯万円以下・既存顧客・前例あり」の3条件を満たす案件は宮下さんの承認不要、と決めるだけで週2休に近づく。KPIは週あたりの宮下さん承認件数（今の実数を来週計測）。
+②顧問先支援: 「脱属人化診断シート（4依存×各5問）」としてそのままメニュー化できる。既存の「COO7タイプ診断」の前工程に置くと自然。初回3万円の単発診断→30日実装伴走へ、という導線が引ける。
+③個人発信: noteの強いフック——「手順書を作っても属人化が消えない理由は、書いたのが『手順』であって『判断の理由』ではないから」。日本語圏でほぼ流通していない切り口。</p></div>
+    <div class="sec"><h4>注記</h4><p>個人コンサルタントの自社サイト発信。経歴（MBA・15年以上のオペレーション統括）は本人サイトの記載のみで第三者の裏取りができていない</p></div>
+    <div class="sec src"><h4>出典</h4><p><a href="https://ricardocruz.io/insights/founder-dependency-guide" target="_blank" rel="noopener noreferrer">https://ricardocruz.io/insights/founder-dependency-guide</a></p></div>
+    <div class="sec"><h4>タグ</h4><div class="tagline"><span>#脱属人化</span><span>#組織設計</span></div></div>
+    <div class="sec"><h4>記録情報</h4><p>2026-08-01 配信（海外COO）・保存日 2026-08-04</p></div>
+    <button class="trash" type="button" onclick="markDelete(event,'A0002')">🗑 この記事を削除リストに入れる</button>
+  </div>
+</details>
+<details class="card" data-id="A0003" data-brief="海外COO" data-tags="戦略実行|経営リズム">
+  <summary>
+    <p class="headline">400社超の調査結果：利益の差を生むのは戦略を「立てる力」ではなく「動かす力」だった</p>
+    <div class="meta">
+      <span class="badge"><span class="dot" style="background:#3b82f6"></span>海外COO</span>
+      <span>Andy West（マッキンゼー シニアパートナー／戦略・コーポレートファイナンス部門共同統括・ボストン）、Antoine Montard（同 クライアント・ケイパビリティ・ディレクター）、Sébastien Lacroix（同 シニアパートナー）、Whitney Zimmerman（同 戦略部門ディスティングイッシュト・エキスパート）</span>
+      <span>記事 2026-07-08</span>
+      <span>A0003</span>
+      <button class="delbtn" type="button" onclick="markDelete(event,'A0003')">✕ 削除</button>
+    </div>
+    <p class="preview">①自社経営: 今期目標（売上1億維持・利益800万・週2休）は「決めた」段階で止まりがち。②の「やめること」の精度が弱点。今週、今期やめる業務・顧客・サービスを3つ紙に書き、金額と工数を横に置く。ここ…</p>
+  </summary>
+  <div class="body">
+    <div class="sec"><h4>宮下さんへの示唆</h4><p>①自社経営: 今期目標（売上1億維持・利益800万・週2休）は「決めた」段階で止まりがち。②の「やめること」の精度が弱点。今週、今期やめる業務・顧客・サービスを3つ紙に書き、金額と工数を横に置く。ここが空欄なら週2休は構造的に達成できない。
+②顧問先支援: 中小企業版に翻訳すると「経営計画発表会で終わる会社」問題そのもの。商談スクリプト——「御社の今期方針、発表した後に誰が何を止めましたか？」。止めた実績がゼロなら動員が機能していない証拠。「やめることリスト」の作成会議を月次の顧問メニューに固定化できる。
+③個人発信: 「戦略の失敗の大半は、戦略が間違っていたのではなく動員していなかっただけ——マッキンゼー400社調査」は数字が効くのでX向けに強い。</p></div>
+    <div class="sec"><h4>注記</h4><p>ペイウォールのため要旨ベースの抄訳。HBRは邦訳（DIAMONDハーバード・ビジネス・レビュー）既出の可能性あり</p></div>
+    <div class="sec src"><h4>出典</h4><p><a href="https://hbr.org/2026/07/how-to-ensure-your-company-acts-on-your-new-strategy" target="_blank" rel="noopener noreferrer">https://hbr.org/2026/07/how-to-ensure-your-company-acts-on-your-new-strategy</a></p></div>
+    <div class="sec"><h4>タグ</h4><div class="tagline"><span>#戦略実行</span><span>#経営リズム</span></div></div>
+    <div class="sec"><h4>記録情報</h4><p>2026-08-01 配信（海外COO）・保存日 2026-08-04</p></div>
+    <button class="trash" type="button" onclick="markDelete(event,'A0003')">🗑 この記事を削除リストに入れる</button>
+  </div>
+</details>
+<details class="card" data-id="A0005" data-brief="海外COO" data-tags="価格戦略|顧問メニュー">
+  <summary>
+    <p class="headline">一度下げた価格は二度と戻らない。値引きの代わりに動かすべきは「価格以外の5つ」</p>
+    <div class="meta">
+      <span class="badge"><span class="dot" style="background:#3b82f6"></span>海外COO</span>
+      <span>Henning Schwinum（Vendux 共同創業者・マネージングパートナー）</span>
+      <span>記事 2026-07-05</span>
+      <span>A0005</span>
+      <button class="delbtn" type="button" onclick="markDelete(event,'A0005')">✕ 削除</button>
+    </div>
+    <p class="preview">①顧問先支援（最優先）: 総合バックオフィス支援を打ち出すにあたり、「値引きしない代わりに動かす5レバー」を社内の営業ルールとして明文化する。商談スクリプト——「ご予算が月◯万円とのことですので、金額…</p>
+  </summary>
+  <div class="body">
+    <div class="sec"><h4>宮下さんへの示唆</h4><p>①顧問先支援（最優先）: 総合バックオフィス支援を打ち出すにあたり、「値引きしない代わりに動かす5レバー」を社内の営業ルールとして明文化する。商談スクリプト——「ご予算が月◯万円とのことですので、金額はこのままで、初月の対象範囲を経理だけに絞る形はいかがでしょう。3か月後に労務を足す前提で組みます」。金額を守りながらYESが取れる。
+②自社経営: 既存顧問先で「最初に安く始めてしまい、上げられていない先」を今日リストアップ。放置するほど上げられなくなる。値上げではなく「範囲の再定義（今の価格で含まれるものを明文化し、超過分を別料金にする）」なら心理的抵抗が小さい。
+③個人発信: 「値引きの本当のコストは、値引いた金額ではなく&quot;次の見積もりの上限&quot;」——1〜10億円の社長に刺さる短文。</p></div>
+    <div class="sec"><h4>注記</h4><p>なし</p></div>
+    <div class="sec src"><h4>出典</h4><p><a href="https://www.vendux.org/blog/why-discounting-will-cost-you-more-than-the-discount" target="_blank" rel="noopener noreferrer">https://www.vendux.org/blog/why-discounting-will-cost-you-more-than-the-discount</a></p></div>
+    <div class="sec"><h4>タグ</h4><div class="tagline"><span>#価格戦略</span><span>#顧問メニュー</span></div></div>
+    <div class="sec"><h4>記録情報</h4><p>2026-08-01 配信（海外COO）・保存日 2026-08-04</p></div>
+    <button class="trash" type="button" onclick="markDelete(event,'A0005')">🗑 この記事を削除リストに入れる</button>
+  </div>
+</details>
+</main>
+<div id="empty" class="hidden">条件に合う記事がありません。検索語やフィルタを見直してください。</div>
+<footer class="site">
+  <strong>使い方</strong> ─ 記事の追加: ブリーフのチャットで「◯本目を記録して」／最新版の反映: 「アーカイブ見せて」／削除: 記事の「✕ 削除」→ 画面下に出る一文をチャットに送信すると確定します。<br>このサイトは見出し・示唆・出典のみを掲載しています（記事の和訳/要約は非掲載）。
+</footer>
+</div>
+<div id="tray" class="hidden">
+  <div class="inner">
+    <strong>削除リスト（<span id="delCount">0</span>件）</strong>: <span id="delIds"></span>
+    <p class="note">⚠ ボタンだけでは記事は消えません。下の一文をコピーして、Claudeのチャットに送信すると確定します（マスターデータから削除されます）。</p>
+    <code id="sentence"></code><button id="copyBtn" type="button">コピー</button><button id="undoBtn" type="button">元に戻す</button>
+  </div>
+</div>
+<script>
+(function(){
+  var pending=[];
+  var qEl=document.getElementById('q');
+  var cards=[].slice.call(document.querySelectorAll('details.card'));
+  var empty=document.getElementById('empty');
+  var tray=document.getElementById('tray');
+
+  var theme=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
+  function applyTheme(){document.documentElement.setAttribute('data-theme',theme);document.getElementById('themeBtn').textContent=(theme==='dark')?'☀️ ライト':'🌙 ダーク';}
+  applyTheme();
+  document.getElementById('themeBtn').addEventListener('click',function(){theme=(theme==='dark')?'light':'dark';applyTheme();});
+
+  function activeSet(id){return [].slice.call(document.querySelectorAll('#'+id+' .chip.on')).map(function(c){return c.getAttribute('data-v');});}
+  function apply(){
+    var q=(qEl.value||'').toLowerCase();
+    var briefs=activeSet('briefChips'), tags=activeSet('tagChips');
+    var visible=0;
+    cards.forEach(function(card){
+      var id=card.getAttribute('data-id');
+      var ok=pending.indexOf(id)===-1;
+      if(ok&&briefs.length){ok=briefs.indexOf(card.getAttribute('data-brief'))!==-1;}
+      if(ok&&tags.length){var ct=card.getAttribute('data-tags').split('|');ok=tags.some(function(t){return ct.indexOf(t)!==-1;});}
+      if(ok&&q){ok=card.textContent.toLowerCase().indexOf(q)!==-1;}
+      card.classList.toggle('hidden',!ok);
+      if(ok){visible++;}
+    });
+    empty.classList.toggle('hidden',visible!==0);
+  }
+  qEl.addEventListener('input',apply);
+  [].slice.call(document.querySelectorAll('.chip')).forEach(function(c){c.addEventListener('click',function(){c.classList.toggle('on');apply();});});
+
+  function updateTray(){
+    var n=pending.length;
+    document.getElementById('delCount').textContent=n;
+    document.getElementById('delIds').textContent=pending.join('、');
+    document.getElementById('sentence').textContent=(n?pending.join('と')+'を消して':'');
+    tray.classList.toggle('hidden',n===0);
+  }
+  window.markDelete=function(ev,id){
+    ev.preventDefault();ev.stopPropagation();
+    if(pending.indexOf(id)===-1){pending.push(id);pending.sort();}
+    updateTray();apply();
+  };
+  document.getElementById('undoBtn').addEventListener('click',function(){pending=[];updateTray();apply();});
+  document.getElementById('copyBtn').addEventListener('click',function(){
+    var t=document.getElementById('sentence').textContent;var b=this;
+    function done(){b.textContent='コピーしました';setTimeout(function(){b.textContent='コピー';},1500);}
+    function fb(){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(ta);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fb);}else{fb();}
+  });
+})();
+</script>
+</body>
+</html>
